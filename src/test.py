@@ -8,7 +8,7 @@ print("anh goc", img)
 
 # Chuyển ảnh sang gray image
 img_gray1 = processing.smoothing_processing.image_CannyDectectEdge1(img, 100, 200)
-img_gray2 = processing.smoothing_processing.image_CannyDectectEdge2(img, 100, 200)
+img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 
 
 ##Sobel filter
@@ -23,7 +23,7 @@ img_gray2 = processing.smoothing_processing.image_CannyDectectEdge2(img, 100, 20
 #img_fix2 = processing.smoothing_processing.image_CannyDectectEdge2(img, 100, 200)
 
 
-cv2.imshow('Gray', img_gray1)
+cv2.imshow('Gray', img_gray)
 #cv2.imshow('Gray', img_gray2)
 cv2.waitKey(5000)
 cv2.destroyAllWindows()

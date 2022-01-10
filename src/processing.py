@@ -2,7 +2,6 @@ import cv2
 import numpy as np
 
 class smoothing_processing():
-
     def Gmagnitude(image):
         img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
       
@@ -28,7 +27,7 @@ class smoothing_processing():
         # tinh gradient anh theo 2 phuong x va y
         gx = cv2.Sobel(np.float32(img), cv2.CV_64F, 1, 0, 3)
         gy = cv2.Sobel(np.float32(img), cv2.CV_64F, 0, 1, 3)
-     
+    
         # Tinh magnitude va angle
         mag, ang = cv2.cartToPolar(gx, gy, angleInDegrees = True)
       
