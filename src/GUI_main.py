@@ -60,7 +60,7 @@ class Root(FloatLayout):
         try:
             img_path = self.ids.image1.source
             img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED) 
-            img_fix = smoothing_processing.image_CannyDectectEdge1(img, 100, 200)
+            img_fix = smoothing_processing.image_CannyDectectEdge1(img, 50, 100)
     
             path = self.ids.image1.source
             path, filename = os.path.splitdrive(path)[:2]

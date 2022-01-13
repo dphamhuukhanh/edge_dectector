@@ -41,6 +41,7 @@ class smoothing_processing():
         height, width = img.shape
       
         # Duyet toan bo pixels anh
+        # Duyet toan bo pixels anh
         for i_x in range(width):
             for i_y in range(height):
               
@@ -84,11 +85,7 @@ class smoothing_processing():
                     if mag[i_y, i_x]<mag[neighb_2_y, neighb_2_x]:
                         mag[i_y, i_x]= 0
   
-        weak_ids = np.zeros_like(img)
-        strong_ids = np.zeros_like(img)             
-        ids = np.zeros_like(img)
-      
-        # Hysteresis Thresholding
+        # Double Thresholding
         for i_x in range(width):
             for i_y in range(height):
              
@@ -97,11 +94,24 @@ class smoothing_processing():
                 if grad_mag<t1:
                     mag[i_y, i_x]= 0
                 elif t2>grad_mag>= t1:
-                    ids[i_y, i_x]= 1
+                    mag[i_y, i_x]= 75
                 else:
-                    ids[i_y, i_x]= 2
-      
-        return mag   
+                    mag[i_y, i_x]= 255
+        #return mag
+
+        # Hysteresis Edge Tracking
+        for i_x in range(1,width-1):
+            for i_y in range(1,height-1):
+                if mag[i_y][i_x] == 75:
+                    if((mag[i_y+1][i_x] == 255) or (mag[i_y-1][i_x] == 225)
+                    or (mag[i_y][i_x+1] == 255) or (mag[i_y][i_x-1] == 225)
+                    or (mag[i_y+1][i_x+1] == 255) or (mag[i_y-1][i_x-1] == 225)
+                    or (mag[i_y+1][i_x-1] == 255) or (mag[i_y-1][i_x+1] == 225)):
+                        mag[i_y][i_x] = 255
+                    else:
+                        mag[i_y][i_x] = 0
+
+        return mag      
 
     def image_CannyDectectEdge2(image, t1, t2):
         img = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
