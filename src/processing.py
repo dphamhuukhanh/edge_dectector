@@ -31,12 +31,6 @@ class smoothing_processing():
         # Tinh magnitude va angle
         mag, ang = cv2.cartToPolar(gx, gy, angleInDegrees = True)
       
-        # setting the minimum and maximum thresholds
-        # for double thresholding
-        #mag_max = np.max(mag)
-        #if not t1: t1 = mag_max * 0.1
-        #if not t2: t2 = mag_max * 0.5
-     
         # Lay size cua anh
         height, width = img.shape
       

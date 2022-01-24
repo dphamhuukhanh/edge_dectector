@@ -20,7 +20,6 @@ class SaveDialog(FloatLayout):
 class Root(FloatLayout):
     loadfile = ObjectProperty(None)
     savefile = ObjectProperty(None)
-    text_input = ObjectProperty(None)
 
     def dismiss_popup(self):
         self._popup.dismiss()
@@ -38,6 +37,27 @@ class Root(FloatLayout):
         except:
             pass
         self.dismiss_popup()
+
+    def show_save(self):
+        content = SaveDialog(save = self.save, cancel = self.dismiss_popup)
+        self._popup = Popup(title = "Save file", content = content,
+                                     size_hint  = (0.8, 0.8))
+        self._popup.open()
+
+    def save(self, path, filename):
+        try:
+            img_path = self.ids.image2.source
+            img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED) 
+            saved_path = os.path.join(path, filename)
+       
+            cv2.imwrite(saved_path, img)
+            self._popup = Popup(title="Save image successfully!", size_hint=(0.2, 0.2))
+            self._popup.open()
+            self.dismiss_popup()
+        except:
+            pass
+        self.dismiss_popup()
+        
 
     def clear_image(self):
         try:
@@ -60,7 +80,7 @@ class Root(FloatLayout):
         try:
             img_path = self.ids.image1.source
             img = cv2.imread(img_path, cv2.IMREAD_UNCHANGED) 
-            img_fix = smoothing_processing.image_CannyDectectEdge1(img, 50, 100)
+            img_fix = smoothing_processing.image_CannyDectectEdge2(img, 100, 200)
     
             path = self.ids.image1.source
             path, filename = os.path.splitdrive(path)[:2]
